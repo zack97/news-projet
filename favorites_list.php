@@ -1,4 +1,11 @@
 <?php
+/**************************
+ * Ce controller permet d'afficher les articles favois sur le site.
+ *               FAVORI()
+ * *************************************************** */
+
+
+
 
 session_start();
 require_once './View/includes/body.php'; 

@@ -1,4 +1,11 @@
 <?php
+/**************************
+ * Ce controller contient  toute la structure de la page création de compte en régroupant 
+ * ses fonctions un après l'autre tout en définissant les valeurs des paramètres 
+ * 
+ * ********************************************************************************** */
+
+
 session_start(); 
 
 require_once '../includes/body.php'; 

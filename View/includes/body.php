@@ -1,5 +1,9 @@
 <?php
 
+/**************************
+ * Cette fonction contient le head, meta .. du site.
+ *               GENERATEHEAD()
+ * *************************************************** */
 
 function generatehead($cssPath=''){ ?>
   <!DOCTYPE html>
@@ -17,6 +21,22 @@ function generatehead($cssPath=''){ ?>
   <body>
 <?php
 }
+
+
+
+
+
+/***************************************************************************************** */
+
+
+
+
+
+
+/**************************
+ * Cette fonction contient le header du site.
+ *               GENERATEHEADER()
+ * *************************************************** */
 
 
 function generateHeader($logoPath = '', $loginPath = '', $logoutaction='', $favoritesPath='') {
@@ -59,6 +79,19 @@ function generateHeader($logoPath = '', $loginPath = '', $logoutaction='', $favo
 }
 
 
+
+
+
+/***************************************************************************************** */
+
+
+
+
+
+/**************************
+ * Cette fonction contient la nav du site.
+ *               GENERATENAV()
+ * *************************************************** */
 
 
 function generatenav($recherchePath=''){
@@ -163,6 +196,18 @@ function generatenav($recherchePath=''){
 
 
 
+
+
+/***************************************************************************************** */
+
+
+
+/**************************
+ * Cette fonction charge tous les articles depuis le fichier JSON et envoi des requêtes d'ajouts aux favoris
+ *               GENERATEARTICLE()
+ * *************************************************** */
+
+
 function generatearticle($jsonFilePath) {
     // Charger les articles depuis le fichier JSON
     $articles = json_decode(file_get_contents($jsonFilePath), true);
@@ -265,13 +310,13 @@ function generatearticle($jsonFilePath) {
                 `;
                 alertPlaceholder.appendChild(alertDiv);
 
-                // Supprimer l'alerte après 5 secondes
+                // Supprime l'alerte après 5 secondes
                 setTimeout(() => {
                     alertDiv.remove();
                 }, 2000);
             }
 
-            // Ajouter un écouteur pour les boutons d'ajout aux favoris
+            // On ajoute un écouteur pour les boutons d'ajout aux favoris
             document.querySelectorAll('.add-to-favorites').forEach(button => {
                 button.addEventListener('click', function () {
                     const articleId = this.dataset.articleId;
@@ -305,6 +350,18 @@ function generatearticle($jsonFilePath) {
 }
 
 
+
+
+
+/***************************************************************************************** */
+
+
+
+
+/**************************
+ * Cette fonction contient le footer du site.
+ *               GENERATEHEADER()
+ * *************************************************** */
 
 function generatefooter($iconImg='./View/media/res.jpg'){
     ?>
@@ -397,7 +454,15 @@ function generatefooter($iconImg='./View/media/res.jpg'){
 
 
 
+/***************************************************************************************** */
 
+
+
+
+/**************************
+ * Cette fonction contient les liens bootsraap et la fermeture du body et html du site.
+ *               GENERATEBOOTTRAAP()
+ * *************************************************** */
 
 
 
@@ -414,6 +479,18 @@ function generateboottraap(){
 
 
 
+
+
+
+/***************************************************************************************** */
+
+
+
+
+/**************************
+ * Cette fonction gere le login du site.
+ *               LOGIN()
+ * *************************************************** */
 
 
 
@@ -490,6 +567,20 @@ function login($jsonUserPath) {
 
 <?php
 }
+
+
+
+
+
+/***************************************************************************************** */
+
+
+
+
+/**************************
+ * Cette fonction gère la création de compte sur le site.
+ *               SIGNUP()
+ * *************************************************** */
 
 
 
@@ -571,6 +662,21 @@ function signup($jsonUserPath) {
 
 
 
+
+
+
+/***************************************************************************************** */
+
+
+
+
+
+/**************************
+ * Cette fonction contient le formulaire de recherche d'articles sur le site.
+ *               RECHERCHEFORMULAIRE()
+ * *************************************************** */
+
+
 function rechercheformulaire() {
     ?>
     <div class="container mt-3">
@@ -626,6 +732,20 @@ function rechercheformulaire() {
 }
 
 
+
+
+
+
+/***************************************************************************************** */
+
+
+
+
+
+/**************************
+ * Cette fonction gère l'envoi des requêtes de recherche d'articles au serveur
+ *               RECHERCHEARTICLES()
+ * *************************************************** */
 
 
 function rechercheArticles($jsonFilePath) {
@@ -685,7 +805,7 @@ function rechercheArticles($jsonFilePath) {
         $_SESSION['search_results'] = $results;
 
         // Rediriger vers la page de résultats
-        // header('Location: searchedarticle.php');    je ne pas reussi à rediriger avec header
+        // header('Location: searchedarticle.php');  je ne pas reussi à rediriger avec header <- Zacharie
 
         echo "<script type='text/javascript'>
                 window.location.href = 'searchedarticle.php';
@@ -695,6 +815,21 @@ function rechercheArticles($jsonFilePath) {
     }
 }
 
+
+
+
+
+
+/***************************************************************************************** */
+
+
+
+
+
+/**************************
+ * Cette fonction contient les articles retrouver après recherche
+ *               FOUNDARTICLES()
+ * *************************************************** */
 
 
 function foundarticle($articles){

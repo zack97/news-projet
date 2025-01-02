@@ -1,4 +1,11 @@
 <?php
+/**************************
+ * Ce controller contient  toute la structure de la page articles rechercher, en régroupant 
+ * ses fonctions un après l'autre tout en définissant les valeurs des paramètres 
+ * 
+ * ********************************************************************************** */
+
+
 session_start();
 
 require_once '../includes/body.php';  
@@ -12,14 +19,14 @@ generatenav('recherche.php');
 
 
 
-// Vérifier si les résultats de la recherche existent dans la session
+// On vérifie si les résultats de la recherche existent dans la session
 if (!isset($_SESSION['search_results']) || empty($_SESSION['search_results'])) {
     echo "Aucun résultat trouvé.";
     exit;
 }
 
 
-// Récupérer les résultats de la session
+// On récupére les résultats de la session
 $searchResults = $_SESSION['search_results'];
 
 
