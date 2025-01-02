@@ -242,11 +242,7 @@ function generatearticle($jsonFilePath) {
                             <h3 class="h6"><?php echo htmlspecialchars($featured['title']); ?></h3>
                             <p><?php echo htmlspecialchars($featured['content']); ?></p>
                             <small>Distribution channels: <?php echo htmlspecialchars($featured['distribution']); ?></small>
-                            <button 
-                                class="btn btn-sm btn-outline-primary add-to-favorites" 
-                                data-article-id="<?php echo htmlspecialchars($featured['id'] ?? $featured['link']); ?>">
-                                Ajouter aux favoris
-                            </button>
+                            
                         </article>
                     <?php } ?>
                 </div>
