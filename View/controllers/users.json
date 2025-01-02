@@ -1,0 +1,24 @@
+{
+    "users": [
+        {
+            "username": "user1",
+            "email": "user1@gmail.com",
+            "password": "user1"
+        },
+        {
+            "username": "user2",
+            "email": "user2@gmail.com",
+            "password": "user2"
+        },
+        {
+            "username": "zack2",
+            "email": "zack2@gmail.com",
+            "password": "$2y$10$Z3YlfjOwWfa0F18qfJdUdOoS0PncaqIhQ0uADFymbqAouJsgCcLZC"
+        },
+        {
+            "username": "zack1",
+            "email": "zack1@gmail.com",
+            "password": "$2y$10$4i\/Z7bBdXEJoy89Tco2Yeu4L5.Jq\/dwhEGTeXbqJGaF1vO\/hqpak2"
+        }
+    ]
+}

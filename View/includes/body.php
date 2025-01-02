@@ -343,13 +343,46 @@ function generateboottraap(){
 
 
 
-function login(){
+
+
+
+function login($jsonUserPath) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Récupérer les données du formulaire
+        $email = trim($_POST['email']);
+        $password = trim($_POST['password']);
+
+        // Charger les utilisateurs depuis le fichier JSON
+        $users = json_decode(file_get_contents($jsonUserPath), true);
+
+        // Vérifier si l'email existe
+        foreach ($users['users'] as $user) {
+            if ($user['email'] === $email) {
+                // Vérifier le mot de passe
+                if (password_verify($password, $user['password'])) {
+                    echo "Login successful!";
+                    // Enregistrer l'utilisateur en session, si nécessaire
+                    $_SESSION['user'] = $user;
+                   
+                    echo "<script type='text/javascript'>
+                          window.location.href = '/index.php';
+                         </script>";
+                    exit();
+                } else {
+                    echo "Invalid password.";
+                    return;
+                }
+            }
+        }
+
+        echo "No user found with that email.";
+    }
     ?>
+
     <div class="container full-height d-flex justify-content-center align-items-center">
         <div class="login-container">
             <h1>Login</h1>
-			
-            <form action="/login" method="POST">
+            <form action="" method="POST">
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
@@ -364,52 +397,93 @@ function login(){
             </form>
             <div class="signup-link">
                 <p style="color: black;">Don't have an account?</p> 
-				<p><a href="sign_up.php">Sign up here</a>.</p>
+                <p><a href="sign_up.php">Sign up here</a>.</p>
             </div>
         </div>
-    </div>
-	
-<?php 
-}
-
-
-
-function signup(){
-    ?>
-    <div class="container full-height d-flex justify-content-center align-items-center">
-       <div class="signup-container">
-        <h1>Sign Up</h1>
-        <form action="/signup" method="POST">
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            </div>
-            <div class="form-group">
-                <label for="confirm-password">Confirm Password:</label>
-                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
-            </div>
-            <div class="form-group">
-                <button type="submit">Sign Up</button>
-            </div>
-        </form>
-        <div class="login-link">
-            <p style="color: black;">Already have an account?</p>
-			<p><a href="log_in.php">Log in here</a>.</p>
-        </div>
-    </div>
     </div>
 
 <?php
 }
 
+
+
+
+
+function signup($jsonUserPath) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Récupérer les données du formulaire
+        $username = trim($_POST['username']);
+        $email = trim($_POST['email']);
+        $password = trim($_POST['password']);
+        $confirmPassword = trim($_POST['confirm-password']);
+
+        // Vérification des mots de passe
+        if ($password !== $confirmPassword) {
+            echo "Passwords do not match.";
+            return;
+        }
+
+        // Charger les utilisateurs depuis le fichier JSON
+        $users = json_decode(file_get_contents($jsonUserPath), true);
+
+        // Vérifier si l'email existe déjà
+        foreach ($users['users'] as $user) {
+            if ($user['email'] === $email) {
+                echo "Email is already taken.";
+                return;
+            }
+        }
+
+        // Hacher le mot de passe
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+        // Ajouter l'utilisateur au tableau
+        $users['users'][] = [
+            'username' => $username,
+            'email' => $email,
+            'password' => $hashedPassword
+        ];
+
+        // Sauvegarder les utilisateurs dans le fichier JSON
+        file_put_contents('users.json', json_encode($users, JSON_PRETTY_PRINT));
+
+        echo "User registered successfully!";
+    }
+    ?>
+
+    <div class="container full-height d-flex justify-content-center align-items-center">
+        <div class="signup-container">
+            <h1>Sign Up</h1>
+            <form action="" method="POST">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password:</label>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Sign Up</button>
+                </div>
+            </form>
+            <div class="login-link">
+                <p style="color: black;">Already have an account?</p>
+                <p><a href="log_in.php">Log in here</a>.</p>
+            </div>
+        </div>
+    </div>
+
+<?php
+}
 
 
 
