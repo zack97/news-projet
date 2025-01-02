@@ -1,6 +1,16 @@
 <?php
 session_start();
 
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['user'])) {
+    // Si l'utilisateur n'est pas connecté, renvoyer une erreur
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Vous devez être connecté pour ajouter des articles aux favoris.'
+    ]);
+    exit; // Terminer l'exécution du script
+}
+
 // Initialiser un tableau pour les favoris si ce n'est pas déjà fait
 if (!isset($_SESSION['favorites'])) {
     $_SESSION['favorites'] = [];

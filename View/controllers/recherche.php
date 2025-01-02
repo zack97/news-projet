@@ -6,9 +6,8 @@ require_once '../includes/body.php';
 
 
 
-
 generatehead('../assets/css/main.css');
-generateHeader('../media/news.jpg', 'log_in.php', 'logout.php');
+generateHeader('../media/news.jpg', 'log_in.php', 'logout.php','../../favorites_list.php');
 generatenav('');
 rechercheformulaire();
 rechercheArticles('../../Model/articles.json');
