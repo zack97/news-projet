@@ -19,7 +19,7 @@ function generatehead($cssPath=''){ ?>
 }
 
 
-function generateHeader($logoPath = '', $loginPath = '') {
+function generateHeader($logoPath = '', $loginPath = '', $logoutaction='') {
     ?>
     <header class="bg-light py-3">
         <div class="container">
@@ -32,19 +32,30 @@ function generateHeader($logoPath = '', $loginPath = '') {
                 <div class="col-md-9 text-center text-md-right">
                     <ul class="list-unstyled d-flex flex-column flex-md-row justify-content-md-end mb-0">
                         <li class="mr-md-3">Questions? +1 (202) 335-3939</li>
-                        <li class="mr-md-3">Pricing & Comparison Chart</li>
                         <li class="mr-md-3">Contact</li>
-                        <li class="mr-md-3">
-                            <a href="<?php echo htmlspecialchars($loginPath); ?>" class="btn btn-primary">log in</a>
-                        </li>
+                        
+                        <?php if (isset($_SESSION['user'])): ?>
+                            <!-- Si l'utilisateur est connecté -->
+                            <li class="mr-md-3">| Welcome - <span class="text-success"><?php echo htmlspecialchars($_SESSION['user']['username']); ?></span></li>
+                            <li class="mr-md-3">
+                                <form action="<?php echo htmlspecialchars($logoutaction)?>" method="POST">
+                                    <button type="submit" class="btn btn-danger">Log Out</button>
+                                </form>
+                            </li>
+                        <?php else: ?>
+                            <!-- Si l'utilisateur n'est pas connecté -->
+                            <li class="mr-md-3">
+                                <a href="<?php echo htmlspecialchars($loginPath); ?>" class="btn btn-primary">Log In</a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>
         </div>
     </header>
     <?php
-
 }
+
 
 
 
@@ -351,6 +362,7 @@ function login($jsonUserPath) {
         // Récupérer les données du formulaire
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
+        $rememberMe = isset($_POST['remember']) ? true : false;  // Gérer "Se souvenir de moi"
 
         // Charger les utilisateurs depuis le fichier JSON
         $users = json_decode(file_get_contents($jsonUserPath), true);
@@ -360,13 +372,19 @@ function login($jsonUserPath) {
             if ($user['email'] === $email) {
                 // Vérifier le mot de passe
                 if (password_verify($password, $user['password'])) {
-                    echo "Login successful!";
-                    // Enregistrer l'utilisateur en session, si nécessaire
+                    // Connexion réussie
                     $_SESSION['user'] = $user;
-                   
+
+                    // Si "Se souvenir de moi" est coché, créer un cookie
+                    if ($rememberMe) {
+                        $cookieValue = base64_encode($email . '|' . $password);
+                        setcookie('remember_me', $cookieValue, time() + 3600 * 24 * 3, '/');  // Durée du cookie 3 jours
+                    }
+
+                    // Redirection vers la page d'accueil
                     echo "<script type='text/javascript'>
-                          window.location.href = '/index.php';
-                         </script>";
+                              window.location.href = '/index.php';
+                          </script>";
                     exit();
                 } else {
                     echo "Invalid password.";
@@ -377,7 +395,7 @@ function login($jsonUserPath) {
 
         echo "No user found with that email.";
     }
-    ?>
+?>
 
     <div class="container full-height d-flex justify-content-center align-items-center">
         <div class="login-container">
@@ -392,11 +410,16 @@ function login($jsonUserPath) {
                     <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
                 </div>
                 <div class="form-group">
+                    <label for="remember">
+                        <input type="checkbox" id="remember" name="remember"> Remember Me
+                    </label>
+                </div>
+                <div class="form-group">
                     <button type="submit" class="btn btn-primary">Log In</button>
                 </div>
             </form>
             <div class="signup-link">
-                <p style="color: black;">Don't have an account?</p> 
+                <p style="color: black;">Don't have an account?</p>
                 <p><a href="sign_up.php">Sign up here</a>.</p>
             </div>
         </div>
@@ -404,8 +427,6 @@ function login($jsonUserPath) {
 
 <?php
 }
-
-
 
 
 

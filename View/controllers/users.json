@@ -19,6 +19,11 @@
             "username": "zack1",
             "email": "zack1@gmail.com",
             "password": "$2y$10$4i\/Z7bBdXEJoy89Tco2Yeu4L5.Jq\/dwhEGTeXbqJGaF1vO\/hqpak2"
+        },
+        {
+            "username": "zack3",
+            "email": "zack3@gmail.com",
+            "password": "$2y$10$zE6c4f8ZnmqTBNoLm7H0NePExR\/bnrqZaY9XTyjsijeyMfM3Spp2m"
         }
     ]
 }

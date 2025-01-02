@@ -7,7 +7,7 @@ require_once '../includes/body.php';
 
 
 generatehead('../assets/css/main.css');
-generateHeader('../media/news.jpg', 'log_in.php');
+generateHeader('../media/news.jpg', 'log_in.php', 'logout.php');
 generatenav('recherche.php');
 
 
