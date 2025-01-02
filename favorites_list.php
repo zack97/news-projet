@@ -56,7 +56,7 @@ if (isset($_SESSION['favorites']) && !empty($_SESSION['favorites'])) {
                 <p><?php echo htmlspecialchars($article['content']); ?></p>
                 <small>Source : <?php echo htmlspecialchars($article['source']); ?></small>
                 
-                <form action="remove_favorite.php" method="POST" style="display:inline;">
+                <form action="./View/controllers/remove_favorite.php" method="POST" style="display:inline;">
                     <input type="hidden" name="article_id" value="<?php echo htmlspecialchars($article['id']); ?>">
                     <button type="submit" class="btn btn-sm btn-danger">Supprimer des favoris</button>
                 </form>
