@@ -409,10 +409,12 @@ function login($jsonUserPath) {
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
                 </div>
-                <div class="form-group">
-                    <label for="remember">
-                        <input type="checkbox" id="remember" name="remember"> Remember Me
+                <div class="form-group remember">
+                    <span>Remember Me </span>
+                    <label for="remember" >
+                        <input type="checkbox" id="remember" name="remember"> 
                     </label>
+                    
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Log In</button>
