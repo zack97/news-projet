@@ -1,6 +1,7 @@
 {
   "latest": [
     {
+      "id": 1,
       "published": "Jun 25, 2024",
       "image": "./View/media/doc2.jpg",
       "title": "Jamaica gets equipment to boost dengue fever diagnostics",
@@ -9,6 +10,7 @@
       "link": "article1.php"
     },
     {
+      "id": 2,
       "published": "Jun 25, 2024",
       "image": "./View/media/doc4.jpg",
       "title": "50 new trucks for NSWNA to boost garbage collection",
@@ -17,6 +19,7 @@
       "link": "article2.php"
     },
     {
+      "id": 3,
       "published": "Jun 25, 2024",
       "title": "PM Says Jamaicans Have a Right to Enjoy the Island’s Beaches",
       "content": "Jamaicans are being assured by Prime Minister, the Most Hon. Andrew Holness, that they have a right to enjoy the island’s beaches. Speaking to journalists following a tour of the Little Dunn’s River attraction in Ocho Rios, St. Ann, on June 21, Mr. Holness ...",
@@ -24,6 +27,7 @@
       "link": "article3.php"
     },
     {
+      "id": 4,
       "published": "Jun 25, 2024",
       "image": "./View/media/doc5.jpg",
       "title": "Opposition wants action to protect Rio Cobre amid another fish kill",
@@ -32,6 +36,7 @@
       "link": "article4.php"
     },
     {
+      "id": 5,
       "published": "Jun 25, 2024",
       "image": "./View/media/doc6.jpg",
       "title": "Haitian women arrested in Old Harbour remanded on illegal entry charge",
@@ -40,6 +45,7 @@
       "link": "article5.php"
     },
     {
+      "id": 6,
       "published": "Jun 25, 2024",
       "title": "Government Remains Committed to Youth Empowerment – PM",
       "content": "Prime Minister, the Most Hon. Andrew Holness, says the Government remains committed to continue delivering on policies conducive to youth empowerment, where young people can self-actualise and achieve their dreams like never before. Speaking to a group of ...",
@@ -47,6 +53,7 @@
       "link": "article6.php"
     },
     {
+      "id": 7,
       "published": "Jun 25, 2024",
       "image": "./View/media/doc8.jpg",
       "title": "NEPA working to confirm source of latest Rio Cobre contamination",
@@ -57,6 +64,7 @@
   ],
   "featured": [
     {
+      "id": 8,
       "published": "June 25, 2024 - 19:15 GMT",
       "image": "./View/media/f1.jpeg",
       "title": "New dean for Cummins Memorial Seminary",
@@ -65,6 +73,7 @@
       "link": "featured1.php"
     },
     {
+      "id": 9,
       "published": "June 25, 2024 - 17:39 GMT",
       "image": "./View/media/f2.jpeg",
       "title": "Climate Risk and Early Warning Systems initiative builds momentum",
@@ -73,6 +82,7 @@
       "link": "featured2.php"
     },
     {
+      "id": 10,
       "published": "June 24, 2024 - 14:21 GMT",
       "image": "./View/media/f3.jpeg",
       "title": "CTO Bestows Inaugural Women’s Leadership Awards at Caribbean Week in New York",

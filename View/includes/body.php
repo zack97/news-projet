@@ -19,7 +19,7 @@ function generatehead($cssPath=''){ ?>
 }
 
 
-function generateHeader($logoPath = '', $loginPath = '', $logoutaction='') {
+function generateHeader($logoPath = '', $loginPath = '', $logoutaction='', $favoritesPath='') {
     ?>
     <header class="bg-light py-3">
         <div class="container">
@@ -31,11 +31,11 @@ function generateHeader($logoPath = '', $loginPath = '', $logoutaction='') {
                 </div>
                 <div class="col-md-9 text-center text-md-right">
                     <ul class="list-unstyled d-flex flex-column flex-md-row justify-content-md-end mb-0">
-                        <li class="mr-md-3">Questions? +1 (202) 335-3939</li>
-                        <li class="mr-md-3">Contact</li>
-                        
                         <?php if (isset($_SESSION['user'])): ?>
                             <!-- Si l'utilisateur est connecté -->
+                            <li class="mr-md-3">
+                                <a href="<?php echo htmlspecialchars($favoritesPath); ?>" class="btn btn-outline-primary">Favorites</a>
+                            </li>
                             <li class="mr-md-3">| Welcome - <span class="text-success"><?php echo htmlspecialchars($_SESSION['user']['username']); ?></span></li>
                             <li class="mr-md-3">
                                 <form action="<?php echo htmlspecialchars($logoutaction)?>" method="POST">
@@ -44,6 +44,8 @@ function generateHeader($logoPath = '', $loginPath = '', $logoutaction='') {
                             </li>
                         <?php else: ?>
                             <!-- Si l'utilisateur n'est pas connecté -->
+                            <li class="mr-md-3">Questions? +1 (202) 335-3939</li>
+                            <li class="mr-md-3">Contact</li>
                             <li class="mr-md-3">
                                 <a href="<?php echo htmlspecialchars($loginPath); ?>" class="btn btn-primary">Log In</a>
                             </li>
@@ -160,6 +162,7 @@ function generatenav($recherchePath=''){
 }
 
 
+
 function generatearticle($jsonFilePath) {
     // Charger les articles depuis le fichier JSON
     $articles = json_decode(file_get_contents($jsonFilePath), true);
@@ -171,6 +174,9 @@ function generatearticle($jsonFilePath) {
     ?>
 
     <div class="container mt-3">
+        <!-- Alert Placeholder -->
+        <div id="alertPlaceholder" class="position-fixed top-0 end-0 m-3" style="z-index: 1050;"></div>
+
         <div class="row">
             <div class="col-12">
                 <h1 class="text-center text-md-left">Jamaica Newswire</h1>
@@ -212,6 +218,11 @@ function generatearticle($jsonFilePath) {
                             </a>
                             <p><?php echo htmlspecialchars($article['content']); ?></p>
                             <small>Source: <?php echo htmlspecialchars($article['source']); ?></small>
+                            <button 
+                                class="btn btn-sm btn-outline-primary add-to-favorites" 
+                                data-article-id="<?php echo htmlspecialchars($article['id'] ?? $article['link']); ?>">
+                                Ajouter aux favoris
+                            </button>
                         </article>
                     <?php } ?>
                 </div>
@@ -231,6 +242,11 @@ function generatearticle($jsonFilePath) {
                             <h3 class="h6"><?php echo htmlspecialchars($featured['title']); ?></h3>
                             <p><?php echo htmlspecialchars($featured['content']); ?></p>
                             <small>Distribution channels: <?php echo htmlspecialchars($featured['distribution']); ?></small>
+                            <button 
+                                class="btn btn-sm btn-outline-primary add-to-favorites" 
+                                data-article-id="<?php echo htmlspecialchars($featured['id'] ?? $featured['link']); ?>">
+                                Ajouter aux favoris
+                            </button>
                         </article>
                     <?php } ?>
                 </div>
@@ -238,10 +254,59 @@ function generatearticle($jsonFilePath) {
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alertPlaceholder = document.getElementById('alertPlaceholder');
+
+            // Fonction pour afficher une alerte
+            function showAlert(message, type) {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+                alertDiv.role = 'alert';
+                alertDiv.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                `;
+                alertPlaceholder.appendChild(alertDiv);
+
+                // Supprimer l'alerte après 5 secondes
+                setTimeout(() => {
+                    alertDiv.remove();
+                }, 2000);
+            }
+
+            // Ajouter un écouteur pour les boutons d'ajout aux favoris
+            document.querySelectorAll('.add-to-favorites').forEach(button => {
+                button.addEventListener('click', function () {
+                    const articleId = this.dataset.articleId;
+
+                    fetch('./View/controllers/favorites.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams({
+                            'article_id': articleId
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            showAlert(data.message, 'success');
+                        } else {
+                            showAlert(data.message, 'danger');
+                        }
+                    })
+                    .catch(error => {
+                        showAlert('Erreur lors de la requête.', 'danger');
+                        console.error(error);
+                    });
+                });
+            });
+        });
+    </script>
     <?php
 }
-
-
 
 
 
