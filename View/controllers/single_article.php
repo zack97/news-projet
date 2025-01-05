@@ -1,4 +1,15 @@
 <?php
+/**************************
+ * Ce controller gère d'article unique et toute sa structure incluant du javascript 
+ * pour la gestion du slider qui affiche la durée de lecture min au max et une fois
+ * au max il nous redirige à l'acceuil
+ * 
+ * ********************************************************************************** */
+
+
+
+
+
 session_start();
 
 require_once '../includes/body.php'; 
@@ -45,7 +56,7 @@ if (!$article) {
 
 // Définir les valeurs pour le slider
 $minReadingTime = 1;  // Minimum en secondes
-$maxReadingTime = 10; // Maximum en secondes
+$maxReadingTime = 20; // Maximum en secondes
 ?>
 
 <!DOCTYPE html>
@@ -143,8 +154,9 @@ $maxReadingTime = 10; // Maximum en secondes
             } else {
                 // Incrémenter la valeur du slider
                 currentValue++;
+                const valeurRestant = maxValue - currentValue;
                 slider.value = currentValue;
-                sliderValue.textContent = currentValue;
+                sliderValue.textContent = valeurRestant;
 
                 // Répéter après 1 seconde
                 setTimeout(animateSlider, 1000);
