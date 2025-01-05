@@ -875,7 +875,7 @@ function foundarticle($articles){
                             <?php if (!empty($article['image'])) { ?>
                                 <img src="<?php echo htmlspecialchars(str_replace('/View', '.', $article['image'])); ?>" alt="small image" class="mr-2 image-size">
                             <?php } ?>
-                            <a href="<?php echo htmlspecialchars($article['link']); ?>">
+                            <a href="single_article.php?id=<?php echo htmlspecialchars($article['id']); ?>">
                                 <h3 class="h6"><?php echo htmlspecialchars($article['title']); ?></h3>
                             </a>
                             <p><?php echo htmlspecialchars($article['content']); ?></p>
