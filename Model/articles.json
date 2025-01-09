@@ -2,12 +2,13 @@
   "latest": [
     {
       "id": 1,
-      "published": "Jun 25, 2024",
+      "published": "Jun 30, 2024",
       "image": "./View/media/doc2.jpg",
       "title": "Jamaica gets equipment to boost dengue fever diagnostics",
       "content": "Jamaica's capacity to respond to its current dengue outbreak has been bolstered by equipment donated to the Ministry of Health and Wellness by the United States Agency for International Development (USAID). The equipment valued US$250,000 was handed ...",
       "source": "The Gleaner - NEUTRAL",
-      "link": "article1.php"
+      "link": "article1.php",
+      "duree": 15
     },
     {
       "id": 2,
@@ -16,51 +17,57 @@
       "title": "50 new trucks for NSWNA to boost garbage collection",
       "content": "The Government will be ramping up its effort to rid sidewalks of abandoned motor vehicles and other forms of bulky waste with the addition of 50 new garbage trucks to the National Solid Waste Management Authority (NSWMA). The trucks, which were handed ...",
       "source": "The Gleaner - NEUTRAL",
-      "link": "article2.php"
+      "link": "article2.php",
+      "duree": 20
     },
     {
       "id": 3,
-      "published": "Jun 25, 2024",
+      "published": "Jun 24, 2024",
       "image": "./View/media/doc6.jpg",
       "title": "PM Says Jamaicans Have a Right to Enjoy the Island’s Beaches",
       "content": "Jamaicans are being assured by Prime Minister, the Most Hon. Andrew Holness, that they have a right to enjoy the island’s beaches. Speaking to journalists following a tour of the Little Dunn’s River attraction in Ocho Rios, St. Ann, on June 21, Mr. Holness ...",
       "source": "Jamaica Information Service - GOV'T INSTITUTION",
-      "link": "article3.php"
+      "link": "article3.php",
+      "duree": 30
     },
     {
       "id": 4,
-      "published": "Jun 25, 2024",
+      "published": "Jun 14, 2024",
       "image": "./View/media/doc5.jpg",
       "title": "Opposition wants action to protect Rio Cobre amid another fish kill",
       "content": "The Opposition is calling for the Government to do more in the fight against the pollution of the Rio Cobre in St Catherine. It says the recurrence of fish kills in the river is a serious matter of concern. The Opposition wants Prime Minister Andrew ...",
       "source": "The Gleaner - NEUTRAL",
-      "link": "article4.php"
+      "link": "article4.php",
+      "duree": 5
     },
     {
       "id": 5,
-      "published": "Jun 25, 2024",
+      "published": "Jun 12, 2024",
       "image": "./View/media/doc6.jpg",
       "title": "Haitian women arrested in Old Harbour remanded on illegal entry charge",
       "content": "Two Haitian women charged with illegal entry after being arrested in Old Harbour, St Catherine were today remanded in the parish court. Charged are 38-year-old Luca Vilmere and 37-year-old Dating Officiane. They were ordered to return to court on June 28 ...",
       "source": "The Gleaner - NEUTRAL",
-      "link": "article5.php"
+      "link": "article5.php",
+      "duree": 10
     },
     {
       "id": 6,
-      "published": "Jun 25, 2024",
+      "published": "Jun 10, 2024",
       "title": "Government Remains Committed to Youth Empowerment – PM",
       "content": "Prime Minister, the Most Hon. Andrew Holness, says the Government remains committed to continue delivering on policies conducive to youth empowerment, where young people can self-actualise and achieve their dreams like never before. Speaking to a group of ...",
       "source": "Jamaica Information Service - GOV'T INSTITUTION",
-      "link": "article6.php"
+      "link": "article6.php",
+      "duree": 15
     },
     {
       "id": 7,
-      "published": "Jun 25, 2024",
+      "published": "Jun 10, 2024",
       "image": "./View/media/doc8.jpg",
       "title": "NEPA working to confirm source of latest Rio Cobre contamination",
       "content": "The National Environment and Planning Agency (NEPA) says it appears heavy rains that occurred in the Zephyrton, Linstead, area on Sunday may have resulted in storm water run-off of the likely contaminant which has caused the latest fish kill in the Rio ...",
       "source": "The Gleaner - NEUTRAL",
-      "link": "article7.php"
+      "link": "article7.php",
+      "duree": 5
     }
   ],
   "featured": [

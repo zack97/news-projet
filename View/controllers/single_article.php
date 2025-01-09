@@ -65,43 +65,6 @@ $maxReadingTime = 20; // Maximum en secondes
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($article['title']); ?></title>
-    <style>
-        .slider-container {
-            margin: 20px 0;
-        }
-
-        .slider {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 100%;
-            height: 10px;
-            background: linear-gradient(to right, #28a745, #007bff);
-            border-radius: 5px;
-            outline: none;
-            cursor: pointer;
-            transition: background 0.3s ease-in-out;
-        }
-
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            background: #ffc107;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .slider-value, .slider-min-max {
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .slider-min-max {
-            display: flex;
-            justify-content: space-between;
-        }
-    </style>
 </head>
 <body>
     <div class="container mt-3">
@@ -115,59 +78,8 @@ $maxReadingTime = 20; // Maximum en secondes
         <p><?php echo htmlspecialchars($article['content']); ?></p>
         <small>Source : <?php echo htmlspecialchars($article['source']); ?></small>
 
-        <!-- Section Slider -->
-        <div class="slider-container">
-            <label for="readingTimeSlider">Temps de lecture restant :</label>
-            <input 
-                type="range" 
-                id="readingTimeSlider" 
-                class="slider" 
-                min="<?php echo $minReadingTime; ?>" 
-                max="<?php echo $maxReadingTime; ?>" 
-                value="<?php echo $minReadingTime; ?>" 
-                readonly>
-            <div class="slider-min-max">
-                <span>Minimum : <?php echo $minReadingTime; ?> sec</span>
-                <span>Maximum : <?php echo $maxReadingTime; ?> sec</span>
-            </div>
-            <div>
-                <span>Temps restant : </span>
-                <span class="slider-value" id="sliderValue"><?php echo $minReadingTime; ?></span> secondes
-            </div>
-        </div>
-
-        
     </div>
 
-    <script>
-        // Fonction pour animer le slider
-        const slider = document.getElementById('readingTimeSlider');
-        const sliderValue = document.getElementById('sliderValue');
-        const maxValue = parseInt(slider.max);
-        const minValue = parseInt(slider.min);
-        let currentValue = minValue;
-
-        function animateSlider() {
-            if (currentValue >= maxValue) {
-                // Redirection une fois la valeur maximale atteinte
-                window.location.href = '/index.php';
-            } else {
-                // Incrémenter la valeur du slider
-                currentValue++;
-                const valeurRestant = maxValue - currentValue;
-                slider.value = currentValue;
-                sliderValue.textContent = valeurRestant;
-
-                // Répéter après 1 seconde
-                setTimeout(animateSlider, 1000);
-            }
-        }
-
-        // Démarrer l'animation du slider au chargement de la page
-        document.addEventListener('DOMContentLoaded', animateSlider);
-    </script>
-</body>
-</html>
 
 <?php
 generatefooter('../media/res.jpg');

@@ -221,31 +221,22 @@ function generatearticle($jsonFilePath) {
     <div class="container mt-3">
         <!-- Alert Placeholder -->
         <div id="alertPlaceholder" class="position-fixed top-0 end-0 m-3" style="z-index: 1050;"></div>
-
-        <div class="row">
-            <div class="col-12">
-                <h1 class="text-center text-md-left">Jamaica Newswire</h1>
-            </div>
-        </div>
-
-        <div class="row mt-3">
-            <div class="col-12">
-                <ul class="list-unstyled">
-                    <li class="font-weight-bold">
-                        JAMAICA NEWSWIRE IS READ BY LEADERS IN BUSINESS AND GOVERNMENT WORLDWIDE
-                    </li>
-                    <li>
-                        Get Newswire by Email • RSS • Jamaica News Topics • Jamaica Media Directory • Newswires by Country
-                    </li>
-                </ul>
-            </div>
-            <div class="col-12 text-right">
-                <img src="./View/media/resco.jpg" alt="icone_resco" class="mr-2 image-size">
-            </div>
-        </div>
-
         <div class="contenu">
             <div class="row">
+                <div class="col-md-4">
+                    <h2 class="h5">Dates and Titles of Articles</h2>
+                    <ul class="list-unstyled">
+                        <!-- Boucle pour afficher les articles avec date et titre -->
+                        <?php foreach (array_merge($articles['latest'],) as $article) { ?>
+                            <li>
+                                <strong><?php echo htmlspecialchars($article['published']); ?></strong> -
+                                <a href="./View/controllers/single_article.php?id=<?php echo htmlspecialchars($article['id']); ?>">
+                                    <?php echo htmlspecialchars($article['title']); ?>
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
                 <!-- Section Latest Articles -->
                 <div class="col-md-8">
                     <h2 class="h5">Latest Press Releases</h2>
@@ -269,26 +260,6 @@ function generatearticle($jsonFilePath) {
                                 data-article-id="<?php echo htmlspecialchars($article['id'] ?? $article['link']); ?>">
                                 Ajouter aux favoris
                             </button>
-                        </article>
-                    <?php } ?>
-                </div>
-
-                <!-- Section Featured Articles -->
-                <div class="col-md-4">
-                    <h2 class="h5">Featured Releases</h2>
-
-                    <?php foreach ($articles['featured'] as $featured) { ?>
-                        <article class="mb-3">
-                            <div>
-                                <small>Published on <?php echo htmlspecialchars($featured['published']); ?></small>
-                            </div>
-                            <?php if (!empty($featured['image'])) { ?>
-                                <img src="<?php echo htmlspecialchars($featured['image']); ?>" alt="small image" class="mr-2 image-size">
-                            <?php } ?>
-                            <h3 class="h6"><?php echo htmlspecialchars($featured['title']); ?></h3>
-                            <p><?php echo htmlspecialchars($featured['content']); ?></p>
-                            <small>Distribution channels: <?php echo htmlspecialchars($featured['distribution']); ?></small>
-                            
                         </article>
                     <?php } ?>
                 </div>
@@ -678,58 +649,56 @@ function signup($jsonUserPath) {
  * *************************************************** */
 
 
-function rechercheformulaire() {
+ function rechercheformulaire() {
     ?>
     <div class="container mt-3">
-        <h1 class="text-center">Search Articles</h1>
+        <h1 class="text-center">Rechercher des Articles</h1>
         <form method="POST" action="">
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="keywordTitleSummary">Keyword in Title/Summary</label>
-                    <input type="text" class="form-control" id="keywordTitleSummary" name="keywordTitleSummary" placeholder="Enter keyword">
+                    <label for="readingTimeMin">Temps de Lecture Minimum (en minutes)</label>
+                    <input 
+                        type="range" 
+                        class="form-control-range" 
+                        id="readingTimeMin" 
+                        name="readingTimeMin" 
+                        min="1" 
+                        max="60" 
+                        value="10" 
+                        oninput="document.getElementById('minTimeValue').textContent = this.value">
+                    <small>Valeur : <span id="minTimeValue">10</span> minutes</small>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="keywordBody">Keyword in Body</label>
-                    <input type="text" class="form-control" id="keywordBody" name="keywordBody" placeholder="Enter keyword">
+                    <label for="readingTimeMax">Temps de Lecture Maximum (en minutes)</label>
+                    <input 
+                        type="range" 
+                        class="form-control-range" 
+                        id="readingTimeMax" 
+                        name="readingTimeMax" 
+                        min="1" 
+                        max="60" 
+                        value="60" 
+                        oninput="document.getElementById('maxTimeValue').textContent = this.value">
+                    <small>Valeur : <span id="maxTimeValue">60</span> minutes</small>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="Date">Date</label>
-                    <input type="date" class="form-control" id="Date" name="Date">
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="category">Category/Hashtags</label>
-                    <select class="form-control" id="category" name="category">
-                        <option selected>Choose...</option>
-                        <option>Politics</option>
-                        <option>Health</option>
-                        <option>Technology</option>
-                        <option>Entertainment</option>
-                        <option>Sports</option>
-                        <option>Business</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="limit">Limit Number of Articles</label>
-                    <input type="number" class="form-control" id="limit" name="limit" placeholder="Enter number">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="sort">Sort By</label>
-                    <select class="form-control" id="sort" name="sort">
-                        <option selected>Choose...</option>
-                        <option>Date</option>
-                        <option>Relevance</option>
-                        <option>Popularity</option>
-                    </select>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-primary">Rechercher</button>
         </form>
     </div>
     <?php
+
+    // Traiter le formulaire si soumis
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $jsonFilePath = '../../Model/articles.json'; // Chemin vers le fichier JSON contenant les articles
+        $filteredArticles = rechercheArticles($jsonFilePath); // Obtenir les articles filtrés
+        if (empty($filteredArticles)) {
+            // Afficher le message si aucun article n'est trouvé
+            echo "<div class='alert alert-warning text-center'>Aucun article trouvé pour cette plage de temps de lecture.</div>";
+        } else {
+            // Afficher les articles filtrés
+            foundarticle($filteredArticles);
+        }
+    }
 }
 
 
@@ -749,71 +718,34 @@ function rechercheformulaire() {
  * *************************************************** */
 
 
-function rechercheArticles($jsonFilePath) {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Charger les articles depuis le fichier JSON
-        $articles = json_decode(file_get_contents($jsonFilePath), true);
-        
-        // Récupérer les données du formulaire
-        $keywordTitleSummary = isset($_POST['keywordTitleSummary']) ? trim($_POST['keywordTitleSummary']) : '';
-        $keywordBody = isset($_POST['keywordBody']) ? trim($_POST['keywordBody']) : '';
-        $date = isset($_POST['Date']) ? $_POST['Date'] : '';
-        $category = isset($_POST['category']) && $_POST['category'] !== 'Choose...' ? $_POST['category'] : '';
-        $limit = isset($_POST['limit']) && is_numeric($_POST['limit']) ? (int) $_POST['limit'] : null;
-        $sort = isset($_POST['sort']) && $_POST['sort'] !== 'Choose...' ? $_POST['sort'] : '';
+ function rechercheArticles($jsonFilePath) {
+    // Charger les articles depuis le fichier JSON
+    $articles = json_decode(file_get_contents($jsonFilePath), true);
 
-        $results = [];
-
-        // Filtrer les articles
-        foreach ($articles['latest'] as $article) {
-            // Filtrer par mot-clé dans le titre ou le résumé
-            if ($keywordTitleSummary && 
-                !stristr($article['title'], $keywordTitleSummary) && 
-                !stristr($article['content'], $keywordTitleSummary)) {
-                continue;
-            }
-
-            // Filtrer par mot-clé dans le corps
-            if ($keywordBody && !stristr($article['content'], $keywordBody)) {
-                continue;
-            }
-
-            // Filtrer par date
-            if ($date && strpos($article['published'], $date) === false) {
-                continue;
-            }
-
-            // Filtrer par catégorie
-            if ($category && isset($article['source']) && stripos($article['source'], $category) === false) {
-                continue;
-            }
-
-            // Ajouter l'article aux résultats
-            $results[] = $article;
-        }
-
-        // Trier les résultats par date
-        if ($sort === 'Date') {
-            usort($results, fn($a, $b) => strtotime($b['published']) - strtotime($a['published']));
-        }
-
-        // Limiter les résultats
-        if ($limit) {
-            $results = array_slice($results, 0, $limit);
-        }
-
-        // Stocker les résultats dans la session
-        $_SESSION['search_results'] = $results;
-
-        // Rediriger vers la page de résultats
-        // header('Location: searchedarticle.php');  je ne pas reussi à rediriger avec header <- Zacharie
-
-        echo "<script type='text/javascript'>
-                window.location.href = 'searchedarticle.php';
-              </script>";
-        
-        exit();
+    if (!$articles) {
+        echo "<div class='alert alert-danger'>Erreur : Impossible de charger les articles.</div>";
+        return [];
     }
+
+    // Récupérer les données du formulaire
+    $readingTimeMin = isset($_POST['readingTimeMin']) ? (int) $_POST['readingTimeMin'] : 0;
+    $readingTimeMax = isset($_POST['readingTimeMax']) ? (int) $_POST['readingTimeMax'] : PHP_INT_MAX;
+
+    $filteredArticles = [];
+
+    // Parcourir les sections d'articles
+    foreach (['latest', 'featured'] as $section) {
+        if (isset($articles[$section])) {
+            foreach ($articles[$section] as $article) {
+                $readingTime = $article['duree'] ?? ''; // Utiliser 0 si non défini
+                if ($readingTime >= $readingTimeMin && $readingTime <= $readingTimeMax) {
+                    $filteredArticles[] = $article;
+                }
+            }
+        }
+    }
+
+    return $filteredArticles; // Retourner les articles filtrés
 }
 
 
@@ -833,62 +765,47 @@ function rechercheArticles($jsonFilePath) {
  * *************************************************** */
 
 
-function foundarticle($articles){
+ function foundarticle($articles) {
 
-    if (!$articles) {
-        echo "Erreur : Impossible de charger les articles.";
-        return;
-    }
     ?>
-
-    <div class="container mt-3">
-        <div class="row">
-            <div class="col-12">
-                <h1 class="text-center text-md-left">Search Results</h1>
-            </div>
-        </div>
-
-        <div class="row mt-3">
-            <div class="col-12">
-                <ul class="list-unstyled">
-                    <li class="font-weight-bold">
-                        Search Results for Articles
-                    </li>
-                </ul>
-            </div>
-            <div class="col-12 text-right">
-                <img src="../media/resco.jpg" alt="icone_resco" class="mr-2 image-size">
-            </div>
-        </div>
-
-        <div class="contenu">
-            <div class="row">
-                <!-- Section Search Results -->
-                <div class="col-md-12">
-                    <h2 class="h5">Articles Found</h2>
-
-                    <?php foreach ($articles as $article) { ?>
-                        <article class="mb-3">
-                            <div>
-                                <small>Published on <?php echo htmlspecialchars($article['published']); ?></small>
-                            </div>
-                            <?php if (!empty($article['image'])) { ?>
-                                <img src="<?php echo htmlspecialchars(str_replace('/View', '.', $article['image'])); ?>" alt="small image" class="mr-2 image-size">
-                            <?php } ?>
-                            <a href="single_article.php?id=<?php echo htmlspecialchars($article['id']); ?>">
-                                <h3 class="h6"><?php echo htmlspecialchars($article['title']); ?></h3>
-                            </a>
-                            <p><?php echo htmlspecialchars($article['content']); ?></p>
-                            <small>Source: <?php echo htmlspecialchars($article['source']); ?></small>
-                        </article>
-                    <?php } ?>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <?php
-}
+   
+       <div class="container mt-3">
+           <div class="row">
+               <div class="col-12">
+                   <h1 class="text-center text-md-left">Résultats de la Recherche</h1>
+               </div>
+           </div>
+   
+           <div class="contenu">
+               <div class="row">
+                   <div class="col-md-12">
+                       <?php foreach ($articles as $article) { ?>
+                           <article class="mb-3 border-bottom pb-3">
+                               <div>
+                                   <small>Publié le <?php echo htmlspecialchars($article['published'] ?? 'Date inconnue'); ?></small>
+                               </div>
+                               <?php if (!empty($article['image'])) { ?>
+                                   <img src="<?php echo htmlspecialchars(str_replace('/View', '.', $article['image'])); ?>" 
+                                        alt="Image de l'article" class="mr-2 image-size">
+                               <?php } ?>
+                               <a href="single_article.php?id=<?php echo htmlspecialchars($article['id'] ?? ''); ?>">
+                                   <h3 class="h6"><?php echo htmlspecialchars($article['title']); ?></h3>
+                               </a>
+                               <p><?php echo htmlspecialchars($article['content']); ?></p>
+                               <small>Source : <?php echo htmlspecialchars($article['source'] ?? 'Source inconnue'); ?></small>
+                               <div>Temps de lecture : 
+                                   <strong><?php echo htmlspecialchars($article['duree'] ?? 'N/A'); ?> minutes</strong>
+                               </div>
+                           </article>
+                       <?php } ?>
+                   </div>
+               </div>
+           </div>
+       </div>
+   
+       <?php
+       }
+      
 
 
 ?>
