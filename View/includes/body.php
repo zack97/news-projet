@@ -208,7 +208,7 @@ function generatenav($recherchePath=''){
  * *************************************************** */
 
 
-function generatearticle($jsonFilePath) {
+ function generatearticle($jsonFilePath) {
     // Charger les articles depuis le fichier JSON
     $articles = json_decode(file_get_contents($jsonFilePath), true);
 
@@ -223,11 +223,11 @@ function generatearticle($jsonFilePath) {
         <div id="alertPlaceholder" class="position-fixed top-0 end-0 m-3" style="z-index: 1050;"></div>
         <div class="contenu">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h2 class="h5">Dates and Titles of Articles</h2>
                     <ul class="list-unstyled">
                         <!-- Boucle pour afficher les articles avec date et titre -->
-                        <?php foreach (array_merge($articles['latest'],) as $article) { ?>
+                        <?php foreach (array_merge($articles['latest'],$articles['featured']) as $article) { ?>
                             <li>
                                 <strong><?php echo htmlspecialchars($article['published']); ?></strong> -
                                 <a href="./View/controllers/single_article.php?id=<?php echo htmlspecialchars($article['id']); ?>">
@@ -238,13 +238,14 @@ function generatearticle($jsonFilePath) {
                     </ul>
                 </div>
                 <!-- Section Latest Articles -->
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <h2 class="h5">Latest Press Releases</h2>
 
                     <?php foreach ($articles['latest'] as $article) { ?>
                         <article class="mb-3">
                             <div>
-                                <small>Published on <?php echo htmlspecialchars($article['published']); ?></small>
+                                <small>Reading time : <?php echo htmlspecialchars($article['duree']); ?>min</small>
+                                <br><small>Published on <?php echo htmlspecialchars($article['published']); ?></small></br>
                             </div>
                             <?php if (!empty($article['image'])) { ?>
                                 <img src="<?php echo htmlspecialchars($article['image']); ?>" alt="small image" class="mr-2 image-size">
@@ -258,8 +259,33 @@ function generatearticle($jsonFilePath) {
                             <button 
                                 class="btn btn-sm btn-outline-primary add-to-favorites" 
                                 data-article-id="<?php echo htmlspecialchars($article['id'] ?? $article['link']); ?>">
-                                Ajouter aux favoris
+                                Add to favorites
                             </button>
+                        </article>
+                    <?php } ?>
+                </div>
+                <div class="col-md-3">
+                    <h2 class="h5">Featured Releases</h2>
+
+                    <?php foreach ($articles['featured'] as $article) { ?>
+                        <article class="mb-3">
+                            <div>
+                                <small>Reading time : <?php echo htmlspecialchars($article['duree']); ?>min</small>
+                                <br><small>Published on <?php echo htmlspecialchars($article['published']); ?></small></br>
+                            </div>
+                            <?php if (!empty($article['image'])) { ?>
+                                <img src="<?php echo htmlspecialchars($article['image']); ?>" alt="small image" class="mr-2 image-size">
+                            <?php } ?>
+                            <a href="./View/controllers/single_article.php?id=<?php echo htmlspecialchars($article['id']); ?>">
+                                <h3 class="h6"><?php echo htmlspecialchars($article['title']); ?></h3>
+                            </a>
+                            <p><?php echo htmlspecialchars($article['content']); ?></p>
+                            <button
+                                    class="btn btn-sm btn-outline-primary add-to-favorites"
+                                    data-article-id="<?php echo htmlspecialchars($article['id'] ?? $article['link']); ?>">
+                                Add to favorites
+                            </button>
+
                         </article>
                     <?php } ?>
                 </div>
