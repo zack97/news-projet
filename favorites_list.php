@@ -38,21 +38,21 @@ if (isset($_SESSION['favorites']) && !empty($_SESSION['favorites'])) {
     });
 
     if (empty($favoriteArticles)) {
-        echo "Aucun article dans vos favoris.";
+        echo "No articles in your favorites.";
         exit;
     }
 } else {
-    echo "Aucun article dans vos favoris.";
+    echo "No articles in your favorites.";
     exit;
 }
 ?>
     <div class="container mt-3">
-        <h1>Liste de vos favoris</h1>
+        <h1>Liste of favorites</h1>
 
         <?php foreach ($favoriteArticles as $article) { ?>
             <article class="mb-3">
                 <div>
-                    <small>Publié le <?php echo htmlspecialchars($article['published']); ?></small>
+                    <small>Published on <?php echo htmlspecialchars($article['published']); ?></small>
                 </div>
                 <?php if (!empty($article['image'])) { ?>
                     <img src="<?php echo htmlspecialchars($article['image']); ?>" alt="image" class="mr-2 image-size">

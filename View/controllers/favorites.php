@@ -16,7 +16,7 @@ if (!isset($_SESSION['user'])) {
     // Si l'utilisateur n'est pas connecté, renvoyer une erreur
     echo json_encode([
         'status' => 'error',
-        'message' => 'Vous devez être connecté pour ajouter des articles aux favoris.'
+        'message' => 'You must be connected to do that action'
     ]);
     exit; 
 }
@@ -37,20 +37,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['article_id'])) {
         // Réponse en JSON avec un message de succès
         echo json_encode([
             'status' => 'success',
-            'message' => 'Article ajouté aux favoris!'
+            'message' => 'Article added successfully!'
         ]);
     } else {
         // Si l'article est déjà dans les favoris, envoyer une erreur
         echo json_encode([
             'status' => 'error',
-            'message' => 'Cet article est déjà dans vos favoris.'
+            'message' => 'Article already added'
         ]);
     }
 } else {
     // Si la méthode POST ou article_id n'est pas défini, on renvoi une erreur
     echo json_encode([
         'status' => 'error',
-        'message' => 'Requête invalide.'
+        'message' => 'Invalide request'
     ]);
 }
 exit;

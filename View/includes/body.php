@@ -678,11 +678,11 @@ function signup($jsonUserPath) {
  function rechercheformulaire() {
     ?>
     <div class="container mt-3">
-        <h1 class="text-center">Rechercher des Articles</h1>
+        <h1 class="text-center">Search Articles</h1>
         <form method="POST" action="">
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="readingTimeMin">Temps de Lecture Minimum (en minutes)</label>
+                    <label for="readingTimeMin">Minimum Reading Time (en minutes)</label>
                     <input 
                         type="range" 
                         class="form-control-range" 
@@ -695,7 +695,7 @@ function signup($jsonUserPath) {
                     <small>Valeur : <span id="minTimeValue">10</span> minutes</small>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="readingTimeMax">Temps de Lecture Maximum (en minutes)</label>
+                    <label for="readingTimeMax">Maximum Reading Time(en minutes)</label>
                     <input 
                         type="range" 
                         class="form-control-range" 
@@ -708,7 +708,7 @@ function signup($jsonUserPath) {
                     <small>Valeur : <span id="maxTimeValue">60</span> minutes</small>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Rechercher</button>
+            <button type="submit" class="btn btn-primary">Search</button>
         </form>
     </div>
     <?php
@@ -719,7 +719,7 @@ function signup($jsonUserPath) {
         $filteredArticles = rechercheArticles($jsonFilePath); // Obtenir les articles filtrés
         if (empty($filteredArticles)) {
             // Afficher le message si aucun article n'est trouvé
-            echo "<div class='alert alert-warning text-center'>Aucun article trouvé pour cette plage de temps de lecture.</div>";
+            echo "<div class='alert alert-warning text-center'>No articles found for the specified reading time</div>";
         } else {
             // Afficher les articles filtrés
             foundarticle($filteredArticles);
